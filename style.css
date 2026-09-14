@@ -1044,3 +1044,7 @@ a {
     background: #3b82f6;
     border-radius: 10px;
 }
+/* Sembunyikan kolom pencarian sementara */
+.search-panel {
+    display: none;
+}
