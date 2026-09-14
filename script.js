@@ -138,51 +138,52 @@ function formatDate(dateString) {
    FEATURED ARTICLE
 ======================================== */
 
-function displayFeatured() {
 
-    const featured =
-        articles.find(article => article.featured) ||
-        articles[0];
+displayFeatured() {
 
-    if (!featured) {
+ let currentSlide = 0;
+
+function displayFeatured(index = 0) {
+
+    const featuredArticles = articles.slice(0, 5);
+
+    if (!featuredArticles.length) {
         return;
     }
 
-    const heroImage =
-        document.querySelector(".hero-card > img");
+    currentSlide = index;
 
-    const heroCategory =
-        document.querySelector(".hero-content .category");
+    const article = featuredArticles[currentSlide];
 
-    const heroTitle =
-        document.querySelector(".hero-content h1");
-
-    const heroMeta =
-        document.querySelector(".hero-content p");
-
+    const heroImage = document.querySelector(".hero-card img");
+    const heroCategory = document.querySelector(".hero-content .category");
+    const heroTitle = document.querySelector(".hero-content h1");
+    const heroMeta = document.querySelector(".hero-content p");
 
     if (heroImage) {
-        heroImage.src = featured.image;
-        heroImage.alt = featured.title;
+        heroImage.src = article.image;
+        heroImage.alt = article.title;
     }
 
     if (heroCategory) {
-        heroCategory.textContent =
-            featured.category;
+        heroCategory.textContent = article.category;
     }
 
     if (heroTitle) {
-        heroTitle.textContent =
-            featured.title;
+        heroTitle.textContent = article.title;
     }
 
     if (heroMeta) {
         heroMeta.textContent =
-            `${featured.author} • ${formatDate(featured.date)}`;
+            `${article.author} • ${formatDate(article.date)}`;
     }
 
-}
+    const dots = document.querySelectorAll(".slider-dots span");
 
+    dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === currentSlide);
+    });
+}
 
 /* ========================================
    POPULAR ARTICLES
@@ -299,28 +300,22 @@ searchInput.addEventListener("input", function() {
    SLIDER DOTS
 ======================================== */
 
-const dots =
-    document.querySelectorAll(".slider-dots span");
+const dots = document.querySelectorAll(".slider-dots span");
 
 dots.forEach(function(dot, index) {
 
     dot.addEventListener("click", function() {
 
-        dots.forEach(function(item) {
-            item.classList.remove("active");
-        });
+        if (index >= articles.length) {
+            return;
+        }
 
-        this.classList.add("active");
-
-        console.log(
-            "Highlight slide:",
-            index + 1
-        );
+        displayFeatured(index);
 
     });
 
 });
-
+   
 
 /* ========================================
    ESCAPE
