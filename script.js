@@ -1,5 +1,6 @@
 /* ========================================
-   GGNESIA NEWS - SCRIPT
+   GGNESIA NEWS
+   SCRIPT
 ======================================== */
 
 
@@ -12,36 +13,28 @@ const closeBtn = document.getElementById("closeBtn");
 const sideMenu = document.getElementById("sideMenu");
 const overlay = document.getElementById("overlay");
 
-
 function openMenu() {
     sideMenu.classList.add("active");
     overlay.classList.add("active");
-
     document.body.style.overflow = "hidden";
 }
-
 
 function closeMenu() {
     sideMenu.classList.remove("active");
     overlay.classList.remove("active");
-
     document.body.style.overflow = "";
 }
 
-
 menuBtn.addEventListener("click", openMenu);
-
 closeBtn.addEventListener("click", closeMenu);
-
 overlay.addEventListener("click", closeMenu);
 
 
 /* ========================================
-   DROPDOWN MENU
+   DROPDOWN
 ======================================== */
 
 const dropdowns = document.querySelectorAll(".dropdown");
-
 
 dropdowns.forEach(function(dropdown) {
 
@@ -49,15 +42,12 @@ dropdowns.forEach(function(dropdown) {
 
         const submenu = this.nextElementSibling;
 
-        /* Tutup submenu lain */
-        dropdowns.forEach(function(otherDropdown) {
+        dropdowns.forEach(function(other) {
 
-            if (otherDropdown !== dropdown) {
+            if (other !== dropdown) {
+                other.classList.remove("active");
 
-                otherDropdown.classList.remove("active");
-
-                const otherSubmenu =
-                    otherDropdown.nextElementSibling;
+                const otherSubmenu = other.nextElementSibling;
 
                 if (otherSubmenu) {
                     otherSubmenu.classList.remove("active");
@@ -66,8 +56,6 @@ dropdowns.forEach(function(dropdown) {
 
         });
 
-
-        /* Buka / tutup submenu */
         this.classList.toggle("active");
 
         if (submenu) {
@@ -80,76 +68,229 @@ dropdowns.forEach(function(dropdown) {
 
 
 /* ========================================
-   SEARCH
+   SEARCH PANEL
 ======================================== */
 
 const searchBtn = document.getElementById("searchBtn");
 const searchPanel = document.getElementById("searchPanel");
 const searchInput = document.getElementById("searchInput");
-const searchSubmit = document.getElementById("searchSubmit");
-
 
 searchBtn.addEventListener("click", function() {
 
     searchPanel.classList.toggle("active");
 
     if (searchPanel.classList.contains("active")) {
-
         searchInput.focus();
-
     }
 
 });
 
 
 /* ========================================
-   SEARCH SUBMIT
+   LOAD ARTICLES
 ======================================== */
 
-searchSubmit.addEventListener("click", function() {
+let articles = [];
 
-    const keyword = searchInput.value.trim();
 
-    if (keyword === "") {
+async function loadArticles() {
 
-        alert("Silakan masukkan kata yang ingin dicari.");
+    try {
 
-        searchInput.focus();
+        const response = await fetch("data/articles.json");
 
+        if (!response.ok) {
+            throw new Error("Gagal mengambil data berita.");
+        }
+
+        articles = await response.json();
+
+        displayFeatured();
+        displayPopular();
+
+    } catch (error) {
+
+        console.error("Error:", error);
+
+    }
+
+}
+
+
+/* ========================================
+   FORMAT DATE
+======================================== */
+
+function formatDate(dateString) {
+
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+}
+
+
+/* ========================================
+   FEATURED ARTICLE
+======================================== */
+
+function displayFeatured() {
+
+    const featured =
+        articles.find(article => article.featured) ||
+        articles[0];
+
+    if (!featured) {
+        return;
+    }
+
+    const heroImage =
+        document.querySelector(".hero-card > img");
+
+    const heroCategory =
+        document.querySelector(".hero-content .category");
+
+    const heroTitle =
+        document.querySelector(".hero-content h1");
+
+    const heroMeta =
+        document.querySelector(".hero-content p");
+
+
+    if (heroImage) {
+        heroImage.src = featured.image;
+        heroImage.alt = featured.title;
+    }
+
+    if (heroCategory) {
+        heroCategory.textContent =
+            featured.category;
+    }
+
+    if (heroTitle) {
+        heroTitle.textContent =
+            featured.title;
+    }
+
+    if (heroMeta) {
+        heroMeta.textContent =
+            `${featured.author} • ${formatDate(featured.date)}`;
+    }
+
+}
+
+
+/* ========================================
+   POPULAR ARTICLES
+======================================== */
+
+function displayPopular(list = null) {
+
+    const articleList =
+        document.querySelector(".article-list");
+
+    if (!articleList) {
         return;
     }
 
 
-    alert("Pencarian: " + keyword);
+    const popularArticles =
+        list ||
+        articles.filter(article => article.popular);
 
-});
+
+    articleList.innerHTML = "";
+
+
+    popularArticles.forEach(function(article) {
+
+        const card =
+            document.createElement("article");
+
+        card.className = "article-card";
+
+
+        card.innerHTML = `
+
+            <div class="article-info">
+
+                <span class="category">
+                    ${article.category}
+                </span>
+
+                <h3>
+                    ${article.title}
+                </h3>
+
+                <p>
+                    ${article.author} •
+                    ${formatDate(article.date)}
+                </p>
+
+            </div>
+
+            <img
+                src="${article.image}"
+                alt="${article.title}"
+            >
+
+        `;
+
+
+        articleList.appendChild(card);
+
+    });
+
+}
 
 
 /* ========================================
-   ENTER UNTUK SEARCH
+   SEARCH ARTICLES
 ======================================== */
 
-searchInput.addEventListener("keydown", function(event) {
+function searchArticles(keyword) {
 
-    if (event.key === "Enter") {
+    const searchText =
+        keyword.toLowerCase().trim();
 
-        searchSubmit.click();
+
+    if (searchText === "") {
+
+        displayPopular();
+
+        return;
 
     }
 
-});
+
+    const results =
+        articles.filter(function(article) {
+
+            return (
+                article.title.toLowerCase().includes(searchText) ||
+                article.category.toLowerCase().includes(searchText) ||
+                article.game.toLowerCase().includes(searchText)
+            );
+
+        });
+
+
+    displayPopular(results);
+
+}
 
 
 /* ========================================
-   MODE
+   SEARCH INPUT
 ======================================== */
 
-const modeBtn = document.getElementById("modeBtn");
+searchInput.addEventListener("input", function() {
 
-
-modeBtn.addEventListener("click", function() {
-
-    document.body.classList.toggle("light-mode");
+    searchArticles(this.value);
 
 });
 
@@ -158,8 +299,8 @@ modeBtn.addEventListener("click", function() {
    SLIDER DOTS
 ======================================== */
 
-const dots = document.querySelectorAll(".slider-dots span");
-
+const dots =
+    document.querySelectorAll(".slider-dots span");
 
 dots.forEach(function(dot, index) {
 
@@ -171,7 +312,10 @@ dots.forEach(function(dot, index) {
 
         this.classList.add("active");
 
-        console.log("Highlight slide:", index + 1);
+        console.log(
+            "Highlight slide:",
+            index + 1
+        );
 
     });
 
@@ -179,7 +323,7 @@ dots.forEach(function(dot, index) {
 
 
 /* ========================================
-   ESCAPE KEY
+   ESCAPE
 ======================================== */
 
 document.addEventListener("keydown", function(event) {
@@ -193,3 +337,10 @@ document.addEventListener("keydown", function(event) {
     }
 
 });
+
+
+/* ========================================
+   START
+======================================== */
+
+loadArticles();
