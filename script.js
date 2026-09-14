@@ -14,21 +14,28 @@ const sideMenu = document.getElementById("sideMenu");
 const overlay = document.getElementById("overlay");
 
 function openMenu() {
-    sideMenu.classList.add("active");
-    overlay.classList.add("active");
+    if (sideMenu) sideMenu.classList.add("active");
+    if (overlay) overlay.classList.add("active");
     document.body.style.overflow = "hidden";
 }
 
 function closeMenu() {
-    sideMenu.classList.remove("active");
-    overlay.classList.remove("active");
+    if (sideMenu) sideMenu.classList.remove("active");
+    if (overlay) overlay.classList.remove("active");
     document.body.style.overflow = "";
 }
 
-menuBtn.addEventListener("click", openMenu);
-closeBtn.addEventListener("click", closeMenu);
-overlay.addEventListener("click", closeMenu);
+if (menuBtn) {
+    menuBtn.addEventListener("click", openMenu);
+}
 
+if (closeBtn) {
+    closeBtn.addEventListener("click", closeMenu);
+}
+
+if (overlay) {
+    overlay.addEventListener("click", closeMenu);
+}
 
 /* ========================================
    DROPDOWN
