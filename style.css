@@ -626,42 +626,50 @@ a {
 
 .popular {
     margin-top: 5px;
-
-    padding: 15px;
+    padding: 16px;
 
     background: var(--card);
 
     border: 1px solid var(--border);
-
     border-radius: 15px;
 }
 
 
-/* TITLE */
+/* JUDUL TERPOPULER */
 
 .popular > h2 {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 
-    padding: 11px 17px;
-
-    border-radius: 9px;
+    padding: 13px 18px;
 
     background: var(--blue);
 
-    color: white;
+    color: var(--white);
 
-    font-size: 21px;
+    border-radius: 10px;
+
+    font-size: 22px;
+    font-weight: 800;
 }
 
 
-/* ARTICLE CARD */
+/* LIST BERITA */
+
+.article-list {
+    width: 100%;
+}
+
+
+/* KARTU BERITA */
 
 .article-card {
     display: flex;
 
-    gap: 14px;
+    align-items: flex-start;
 
-    padding: 19px 0;
+    gap: 15px;
+
+    padding: 22px 0;
 
     border-bottom: 1px solid var(--border);
 }
@@ -671,7 +679,7 @@ a {
 }
 
 
-/* ARTICLE TEXT */
+/* BAGIAN TEKS */
 
 .article-info {
     flex: 1;
@@ -679,36 +687,164 @@ a {
     min-width: 0;
 }
 
-.article-info h3 {
-    margin-top: 9px;
+
+/* KATEGORI */
+
+.article-info .category {
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    background: var(--blue);
 
     color: var(--white);
 
-    font-size: 18px;
+    font-size: 11px;
 
-    line-height: 1.4;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
 }
 
+
+/* JUDUL */
+
+.article-info h3 {
+    margin-top: 13px;
+
+    color: var(--white);
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.55;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* PENULIS & TANGGAL */
+
 .article-info p {
-    margin-top: 9px;
+    margin-top: 12px;
 
     color: var(--muted);
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 
-/* ARTICLE IMAGE */
+/* GAMBAR */
 
 .article-card > img {
     width: 125px;
-    height: 95px;
+    height: 100px;
 
     flex-shrink: 0;
 
     object-fit: cover;
 
-    border-radius: 11px;
+    border-radius: 13px;
+
+    display: block;
+}
+
+
+/* ========================================
+   TERPOPULER - HP KECIL
+======================================== */
+
+@media (max-width: 399px) {
+
+    .popular {
+        padding: 13px;
+    }
+
+    .popular > h2 {
+        font-size: 20px;
+    }
+
+    .article-card {
+        gap: 11px;
+        padding: 19px 0;
+    }
+
+    .article-card > img {
+        width: 105px;
+        height: 85px;
+    }
+
+    .article-info h3 {
+        font-size: 16px;
+        line-height: 1.45;
+    }
+
+    .article-info p {
+        font-size: 10px;
+    }
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (min-width: 700px) {
+
+    .popular {
+        padding: 22px;
+    }
+
+    .popular > h2 {
+        font-size: 24px;
+    }
+
+    .article-card {
+        gap: 20px;
+        padding: 24px 5px;
+    }
+
+    .article-card > img {
+        width: 180px;
+        height: 115px;
+    }
+
+    .article-info h3 {
+        font-size: 21px;
+        line-height: 1.45;
+    }
+}
+
+
+/* ========================================
+   DESKTOP
+======================================== */
+
+@media (min-width: 1000px) {
+
+    .popular {
+        padding: 25px;
+    }
+
+    .popular > h2 {
+        font-size: 25px;
+    }
+
+    .article-card {
+        padding: 25px 10px;
+    }
+
+    .article-card > img {
+        width: 220px;
+        height: 140px;
+    }
+
+    .article-info h3 {
+        font-size: 22px;
+    }
 }
 
 
