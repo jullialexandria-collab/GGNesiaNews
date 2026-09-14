@@ -1022,3 +1022,25 @@ a {
         font-size: 23px;
     }
   }
+/* =================================
+   SIDE MENU SCROLL FIX
+================================= */
+
+.side-menu {
+    max-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar menu */
+.side-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.side-menu::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 10px;
+}
