@@ -296,26 +296,71 @@ searchInput.addEventListener("input", function() {
 });
 
 
-/* ========================================
-   SLIDER DOTS
-======================================== */
+/* =================================
+   HIGHLIGHT SLIDER
+================================= */
+
+let currentSlide = 0;
 
 const dots = document.querySelectorAll(".slider-dots span");
+
+function showSlide(index) {
+
+    const featuredArticles = articles.filter(article => article.featured);
+
+    if (featuredArticles.length === 0) {
+        return;
+    }
+
+    currentSlide = index;
+
+    if (currentSlide >= featuredArticles.length) {
+        currentSlide = 0;
+    }
+
+    const article = featuredArticles[currentSlide];
+
+    const heroImage = document.querySelector(".hero-card img");
+    const heroCategory = document.querySelector(".hero-content .category");
+    const heroTitle = document.querySelector(".hero-content h1");
+    const heroMeta = document.querySelector(".hero-content p");
+
+    if (heroImage) {
+        heroImage.src = article.image;
+        heroImage.alt = article.title;
+    }
+
+    if (heroCategory) {
+        heroCategory.textContent = article.category;
+    }
+
+    if (heroTitle) {
+        heroTitle.textContent = article.title;
+    }
+
+    if (heroMeta) {
+        heroMeta.textContent =
+            `${article.author} • ${formatDate(article.date)}`;
+    }
+
+    dots.forEach(dot => {
+        dot.classList.remove("active");
+    });
+
+    if (dots[currentSlide]) {
+        dots[currentSlide].classList.add("active");
+    }
+}
 
 dots.forEach(function(dot, index) {
 
     dot.addEventListener("click", function() {
 
-        if (index >= articles.length) {
-            return;
-        }
-
-        displayFeatured(index);
+        showSlide(index);
 
     });
 
 });
-   
 
 /* ========================================
    ESCAPE
