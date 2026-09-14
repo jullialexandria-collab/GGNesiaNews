@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "Update Mobile Legends Terbaru Hadirkan Event dan Skin Baru",
+    "category": "Mobile Legends",
+    "game": "Mobile Legends",
+    "author": "GGNesia",
+    "date": "2026-09-14",
+    "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Informasi terbaru seputar update, event, dan konten baru Mobile Legends.",
+    "featured": true,
+    "popular": true
+  },
+  {
+    "id": 2,
+    "title": "Turnamen PUBG Mobile Terbaru Siap Hadirkan Persaingan Sengit",
+    "category": "PUBG Mobile",
+    "game": "PUBG Mobile",
+    "author": "GGNesia",
+    "date": "2026-09-13",
+    "image": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Persaingan tim esports PUBG Mobile semakin menarik menjelang turnamen berikutnya.",
+    "featured": false,
+    "popular": true
+  },
+  {
+    "id": 3,
+    "title": "Free Fire Esports Indonesia Bersiap Menuju Kompetisi Dunia",
+    "category": "Free Fire",
+    "game": "Free Fire",
+    "author": "GGNesia",
+    "date": "2026-09-12",
+    "image": "https://images.unsplash.com/photo-1605870445919-838d190e8e1b?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Tim-tim terbaik Indonesia kembali mempersiapkan diri menghadapi kompetisi esports.",
+    "featured": false,
+    "popular": true
+  },
+  {
+    "id": 4,
+    "title": "Tim Indonesia Tampil di Kompetisi Valorant Internasional",
+    "category": "Valorant",
+    "game": "Valorant",
+    "author": "GGNesia",
+    "date": "2026-09-11",
+    "image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Perwakilan Indonesia kembali membawa nama bangsa ke panggung esports internasional.",
+    "featured": false,
+    "popular": true
+  },
+  {
+    "id": 5,
+    "title": "Perkembangan Industri Game Indonesia Terus Mengalami Pertumbuhan",
+    "category": "Industry",
+    "game": "Industry",
+    "author": "GGNesia",
+    "date": "2026-09-10",
+    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Industri game Indonesia terus berkembang dengan hadirnya berbagai studio dan developer lokal.",
+    "featured": false,
+    "popular": false
+  },
+  {
+    "id": 6,
+    "title": "Game Terbaru yang Patut Ditunggu Para Gamer Indonesia",
+    "category": "News",
+    "game": "Gaming",
+    "author": "GGNesia",
+    "date": "2026-09-09",
+    "image": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=80",
+    "excerpt": "Sejumlah game baru menarik perhatian gamer dan siap hadir di berbagai platform.",
+    "featured": false,
+    "popular": false
+  }
+]
