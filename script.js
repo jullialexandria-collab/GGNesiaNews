@@ -41,38 +41,24 @@ if (overlay) {
    DROPDOWN
 ======================================== */
 
-const dropdowns = document.querySelectorAll(".dropdown");
 
-dropdowns.forEach(function(dropdown) {
+const searchBtn = document.getElementById("searchBtn");
+const searchPanel = document.getElementById("searchPanel");
+const searchInput = document.getElementById("searchInput");
 
-    dropdown.addEventListener("click", function() {
+if (searchBtn) {
+    searchBtn.addEventListener("click", function() {
 
-        const submenu = this.nextElementSibling;
+        if (!searchPanel) return;
 
-        dropdowns.forEach(function(other) {
+        searchPanel.classList.toggle("active");
 
-            if (other !== dropdown) {
-                other.classList.remove("active");
-
-                const otherSubmenu = other.nextElementSibling;
-
-                if (otherSubmenu) {
-                    otherSubmenu.classList.remove("active");
-                }
-            }
-
-        });
-
-        this.classList.toggle("active");
-
-        if (submenu) {
-            submenu.classList.toggle("active");
+        if (searchPanel.classList.contains("active") && searchInput) {
+            searchInput.focus();
         }
 
     });
-
-});
-
+}
 
 /* ========================================
    SEARCH PANEL
