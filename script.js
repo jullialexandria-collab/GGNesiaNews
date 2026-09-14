@@ -107,7 +107,7 @@ async function loadArticles() {
 
         displayFeatured();
         displayPopular();
-
+        showSlide(0);
     } catch (error) {
 
         console.error("Error:", error);
@@ -306,19 +306,20 @@ const dots = document.querySelectorAll(".slider-dots span");
 
 function showSlide(index) {
 
-    const featuredArticles = articles.filter(article => article.featured);
+    if (!articles || articles.length === 0) {
+        return;
+    }
 
-    if (featuredArticles.length === 0) {
+    // Gunakan 5 artikel pertama sebagai Highlight
+    const slideArticles = articles.slice(0, 5);
+
+    if (index < 0 || index >= slideArticles.length) {
         return;
     }
 
     currentSlide = index;
 
-    if (currentSlide >= featuredArticles.length) {
-        currentSlide = 0;
-    }
-
-    const article = featuredArticles[currentSlide];
+    const article = slideArticles[currentSlide];
 
     const heroImage = document.querySelector(".hero-card img");
     const heroCategory = document.querySelector(".hero-content .category");
@@ -343,7 +344,7 @@ function showSlide(index) {
             `${article.author} • ${formatDate(article.date)}`;
     }
 
-    dots.forEach(dot => {
+    dots.forEach(function(dot) {
         dot.classList.remove("active");
     });
 
@@ -352,16 +353,20 @@ function showSlide(index) {
     }
 }
 
+
+// Klik titik slider
 dots.forEach(function(dot, index) {
 
-    dot.addEventListener("click", function() {
+    dot.addEventListener("click", function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
 
         showSlide(index);
 
     });
 
 });
-
 /* ========================================
    ESCAPE
 ======================================== */
